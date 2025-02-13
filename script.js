@@ -73,18 +73,20 @@ function loadLastMedication() {
 
         const date = new Date(lastMedication.date + ' ' + lastMedication.time);
         const timeDiff = date.setHours(date.getHours() + parseInt(lastMedication.hours)) - now;
-        const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
-        const seconds = Math.floor((timeDiff / 1000) % 60);
+        const hours = Math.floor((Math.abs(timeDiff) / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((Math.abs(timeDiff) / (1000 * 60)) % 60);
+        const seconds = Math.floor((Math.abs(timeDiff) / 1000) % 60);
 
         if (timeDiff < 0) {
             body.className = "red";
             medications.className = "red";
+            container.innerHTML = `Time past due:<br>`;
         } else {
             body.className = "green";
             medications.className = "green";
+            container.innerHTML = `Next dose due in:<br>`;
         }
-        container.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
+        container.innerHTML += `${hours}h ${minutes}m ${seconds}s`;
     }, 1000);
 }
 
