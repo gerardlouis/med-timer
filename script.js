@@ -51,10 +51,8 @@ function deleteMedication(index) {
 }
 
 function loadLastMedication() {
+    const body = document.getElementById("body");
     const container = document.getElementById("timer");
-
-    const now = new Date();
-    const lastMedication = medTimer[0];
 
     interval = setInterval(() => {
         const now = new Date();
@@ -63,16 +61,22 @@ function loadLastMedication() {
         if (!lastMedication) {
             clearInterval(interval);
             container.innerHTML = `No medication found.`;
+            body.className = "";
             return;
         }
 
         const date = new Date(lastMedication.date + ' ' + lastMedication.time);
-        const timeDiff = Math.abs(now - date.setHours(date.getHours() + parseInt(lastMedication.hours)));
+        const timeDiff = date.setHours(date.getHours() + parseInt(lastMedication.hours)) - now;
         const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
         const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
         const seconds = Math.floor((timeDiff / 1000) % 60);
 
-        container.innerHTML = `${lastMedication.name} - ${hours}h ${minutes}m ${seconds}s`;
+        if (timeDiff < 0) {
+            body.className = "red";
+        } else {
+            body.className = "green";
+        }
+        container.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
     }, 1000);
 }
 
@@ -89,12 +93,11 @@ function loadMedications() {
     const tableBody = document.createElement("tbody");
     const headerRow = document.createElement("tr");
     tableHeader.appendChild(headerRow);
-    headerRow.innerHTML = `<th>Name</th><th>Date</th><th>Time</th><th>Hours</th><th>X</th>`;
+    headerRow.innerHTML = `<th>Date</th><th>Time</th><th>Hours</th><th>X</th>`;
     table.appendChild(tableHeader);
     medTimer.forEach((medication, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
-            <td>${medication.name}</td>
             <td>${medication.date}</td>
             <td>${medication.time}</td>
             <td>${medication.hours}</td>

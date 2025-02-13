@@ -1,5 +1,14 @@
 body {
     margin: 0;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.green {
+    background-color: greenyellow;
+}
+
+.red {
+    background-color:red
 }
 
 .main {
@@ -14,6 +23,8 @@ body {
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+    font-size: 36pt;
+    font-weight: bold;
 }
 
 form {
