@@ -1,5 +1,10 @@
 medTimer = [];
 interval = null;
+version = "1.0.0";
+
+function setVersion() {
+    document.getElementById("version").innerHTML = `Version: ${version}`;
+}
 
 function loadFromLocalStorage() {
     const medTimerLocalStorage = localStorage.getItem('medTimer');
@@ -134,6 +139,7 @@ function setFormDefaults() {
 }
 
 function init() {
+    setVersion();
     loadFromLocalStorage();
     loadLastMedication();
     setFormDefaults()
