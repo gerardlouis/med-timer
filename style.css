@@ -3,11 +3,11 @@ body {
     font-family: Helvetica, Arial, sans-serif;
 }
 
-.green {
+body.green, #medications.green thead {
     background-color: greenyellow;
 }
 
-.red {
+body.red, #medications.red thead {
     background-color:red
 }
 
@@ -34,8 +34,13 @@ form {
     margin: 0 auto;
 }
 
+#medications {
+    overflow: auto;
+}
+
 table {
     margin: 0 auto;
+    position: relative;
 }
 
 thead, tbody, tr {
@@ -48,10 +53,10 @@ td {
     text-align: center;
 }
 
-tbody {
-    display: block;
-    overflow-y: auto;
-    max-height: 120px;
+thead {
+    position: sticky;
+    top: 0;
+    background-color: white;
 }
 
 .center {
@@ -62,4 +67,14 @@ tbody {
     position: fixed;
     bottom: 0;
     right: 0;
+}
+
+@media screen and (max-width: 450px) {
+    td.hide, th.hide {
+        display: none;
+        width: 0;
+        height: 0;
+        opacity: 0;
+        visibility: collapse;
+    }
 }

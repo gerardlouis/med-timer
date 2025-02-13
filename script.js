@@ -57,6 +57,7 @@ function deleteMedication(index) {
 
 function loadLastMedication() {
     const body = document.getElementById("body");
+    const medications = document.getElementById("medications");
     const container = document.getElementById("timer");
 
     interval = setInterval(() => {
@@ -78,8 +79,10 @@ function loadLastMedication() {
 
         if (timeDiff < 0) {
             body.className = "red";
+            medications.className = "red";
         } else {
             body.className = "green";
+            medications.className = "green";
         }
         container.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
     }, 1000);
@@ -98,14 +101,14 @@ function loadMedications() {
     const tableBody = document.createElement("tbody");
     const headerRow = document.createElement("tr");
     tableHeader.appendChild(headerRow);
-    headerRow.innerHTML = `<th>Date</th><th>Time</th><th>Hours</th><th>X</th>`;
+    headerRow.innerHTML = `<th>Name</th><th>Date/Time</th><th class="hide">Interval (h)</th><th>X</th>`;
     table.appendChild(tableHeader);
     medTimer.forEach((medication, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
-            <td>${medication.date}</td>
-            <td>${medication.time}</td>
-            <td>${medication.hours}</td>
+            <td>${medication.name}</td>
+            <td>${medication.date}<br>${medication.time}</td>
+            <td class="hide">${medication.hours}</td>
             <td><button type="button" onclick="deleteMedication(${medication.index})">Delete</button></td>
         `;
         tableBody.appendChild(row);
