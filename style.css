@@ -1,0 +1,48 @@
+body {
+    margin: 0;
+}
+
+.main {
+    display: grid;
+    grid-template-rows: min-content 1fr min-content minmax(0, 160px);
+    height: 100vh;
+}
+
+#timer {
+    margin: 0;
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 250px;
+    margin: 0 auto;
+}
+
+table {
+    margin: 0 auto;
+}
+
+thead, tbody, tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;/* even columns width , fix width of table too*/
+}
+
+td {
+    text-align: center;
+}
+
+tbody {
+    display: block;
+    overflow-y: auto;
+    max-height: 120px;
+}
+
+.center {
+    text-align: center;
+}
