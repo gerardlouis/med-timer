@@ -32,6 +32,24 @@ function clearAll() {
     }
 }
 
+function compareMedication(a, b) {
+    const now = new Date();
+
+    const aDate = new Date(a.date + ' ' + a.time);
+    const aTimeDiff = aDate.setHours(aDate.getHours() + parseInt(a.hours)) - now;
+
+    const bDate = new Date(b.date + ' ' + b.time);
+    const bTimeDiff = bDate.setHours(bDate.getHours() + parseInt(b.hours)) - now;
+
+    if (aTimeDiff < bTimeDiff) {
+        return -1;
+    }
+    if (aTimeDiff > bTimeDiff) {
+        return 1;
+    }
+    return 0;
+}
+
 function addMedication() {
     const form = document.getElementById("medForm");
     const name = form.elements["name"].value;
@@ -62,7 +80,7 @@ function loadLastMedication() {
 
     interval = setInterval(() => {
         const now = new Date();
-        const lastMedication = medTimer[0];
+        const lastMedication = medTimer.sort(compareMedication)[0];
 
         if (!lastMedication) {
             clearInterval(interval);
@@ -105,7 +123,7 @@ function loadMedications() {
     tableHeader.appendChild(headerRow);
     headerRow.innerHTML = `<th>Name</th><th>Date/Time</th><th class="hide">Interval (h)</th><th>X</th>`;
     table.appendChild(tableHeader);
-    medTimer.forEach((medication, index) => {
+    medTimer.sort(compareMedication).forEach((medication, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
             <td>${medication.name}</td>
