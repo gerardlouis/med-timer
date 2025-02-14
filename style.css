@@ -69,6 +69,10 @@ thead {
     right: 0;
 }
 
+.delete {
+    width: 30px;
+}
+
 @media screen and (max-width: 450px) {
     td.hide, th.hide {
         display: none;
